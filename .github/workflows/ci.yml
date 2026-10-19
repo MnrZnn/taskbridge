@@ -1,0 +1,109 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-e-testes:
+    name: Build + testes (unitários e integração)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      - name: Build e testes
+        run: mvn -B verify
+      - name: Relatórios de teste
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
+
+  migrations-mysql:
+    name: Migrations + validação do schema no MySQL real
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_DATABASE: taskbridge
+          MYSQL_USER: taskbridge
+          MYSQL_PASSWORD: ci-somente-teste
+          MYSQL_ROOT_PASSWORD: ci-root-somente-teste
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+      # Mesmo teste de contexto dos testes locais, mas apontado para o MySQL: roda as migrations do
+      # Flyway e o ddl-auto=validate do Hibernate contra o banco oficial.
+      - name: Subir contexto contra MySQL
+        run: >
+          mvn -B test -Dtest=TaskBridgeApplicationTest -Dsurefire.failIfNoSpecifiedTests=false
+          -Dspring.datasource.url="jdbc:mysql://127.0.0.1:3306/taskbridge?sslMode=DISABLED&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+          -Dspring.datasource.username=taskbridge
+          -Dspring.datasource.password=ci-somente-teste
+
+  imagem:
+    name: Imagem Docker (GHCR)
+    needs: [build-e-testes, migrations-mysql]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+
+  deploy:
+    name: Deploy (produção)
+    needs: imagem
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    # O environment "production" permite exigir aprovação manual e guarda os secrets do servidor.
+    environment: production
+    steps:
+      - name: Atualizar containers no servidor
+        env:
+          SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_HOST: ${{ secrets.DEPLOY_HOST }}
+          SSH_USER: ${{ secrets.DEPLOY_USER }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_deploy && chmod 600 ~/.ssh/id_deploy
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_deploy "$SSH_USER@$SSH_HOST" \
+            "cd /opt/taskbridge && docker compose -f docker-compose.prod.yml pull app && docker compose -f docker-compose.prod.yml up -d"

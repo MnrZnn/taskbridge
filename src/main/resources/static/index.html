@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TaskBridge: descreva o que você precisa, estruture o escopo, encontre profissionais compatíveis e acompanhe cada entrega.">
+    <title>TaskBridge · da necessidade à entrega</title>
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/taskbridge.css">
+    <script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/webjars/lucide/1.20.0/dist/umd/lucide.min.js" defer></script>
+    <script type="module" src="/js/pages/inicio.js"></script>
+</head>
+<body>
+<a class="tb-skip visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+<header id="tb-cabecalho"></header>
+
+<main id="conteudo" tabindex="-1">
+    <section class="tb-landing-hero">
+        <div class="container-lg">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6">
+                    <div class="tb-sobretitulo">Plataforma de contratação freelance</div>
+                    <h1>Você diz <em>o que precisa</em>.<br>A gente ajuda a transformar isso em um projeto.</h1>
+                    <p class="lead mt-3">
+                        No TaskBridge você não precisa saber qual serviço comprar. Descreva a necessidade,
+                        estruture o escopo com a gente e receba propostas de profissionais compatíveis —
+                        com prazo, entregáveis e critérios de aceite definidos antes de começar.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mt-4" id="inicio-acoes">
+                        <a class="btn btn-primary btn-lg" href="/register">Descrever minha necessidade</a>
+                        <a class="btn btn-outline-secondary btn-lg" href="/projects">Ver projetos abertos</a>
+                    </div>
+                    <p class="small text-secondary mt-3 mb-0">É profissional? <a href="/register?tipo=PRESTADOR">Crie um perfil de prestador</a> e receba projetos compatíveis.</p>
+                </div>
+                <div class="col-lg-6">
+                    <figure class="tb-exemplo m-0" aria-label="Exemplo de necessidade transformada em projeto">
+                        <div class="tb-exemplo-barra"><span>Necessidade → projeto</span><span>exemplo</span></div>
+                        <div class="tb-exemplo-entrada">“Preciso criar um site para minha pequena empresa.”</div>
+                        <dl>
+                            <dt>Categoria</dt><dd>Desenvolvimento Web</dd>
+                            <dt>Objetivo</dt><dd>Receber encomendas pela internet</dd>
+                            <dt>Orçamento</dt><dd>R$ 2.000 – R$ 4.000</dd>
+                            <dt>Prazo</dt><dd>30 dias</dd>
+                            <dt>Entregáveis</dt><dd>Layout aprovado · site publicado no domínio</dd>
+                            <dt>Aceite</dt><dd>Formulário de encomenda funcionando</dd>
+                        </dl>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tb-secao">
+        <div class="container-lg">
+            <div class="tb-sobretitulo">Como funciona</div>
+            <h2>Quatro passos, sem adivinhação</h2>
+            <div class="tb-passos">
+                <div class="tb-passo">
+                    <div class="tb-passo-numero">01</div>
+                    <h3>Descreva o que você precisa</h3>
+                    <p>Com as suas palavras. Não precisa conhecer o termo técnico do serviço.</p>
+                </div>
+                <div class="tb-passo">
+                    <div class="tb-passo-numero">02</div>
+                    <h3>Estruture seu projeto</h3>
+                    <p>Um assistente em etapas define objetivo, orçamento, prazo, requisitos, entregáveis e critérios de aceite.</p>
+                </div>
+                <div class="tb-passo">
+                    <div class="tb-passo-numero">03</div>
+                    <h3>Encontre profissionais compatíveis</h3>
+                    <p>O matching explica cada ponto: categoria, habilidades, orçamento, prazo e disponibilidade.</p>
+                </div>
+                <div class="tb-passo">
+                    <div class="tb-passo-numero">04</div>
+                    <h3>Acompanhe cada entrega</h3>
+                    <p>Cada entregável é enviado, revisado e aprovado. O projeto só termina quando você aceita.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tb-secao">
+        <div class="container-lg">
+            <div class="tb-sobretitulo">O fluxo completo</div>
+            <h2>Da necessidade à conclusão, cada etapa tem dono e estado</h2>
+            <p class="text-secondary mb-0 tb-texto-limitado">Nenhuma etapa pode ser pulada: uma proposta só vira contratação quando o cliente aceita, o trabalho só começa depois do pagamento e o projeto só é concluído quando todas as entregas forem aprovadas.</p>
+            <ol class="tb-fluxo" aria-label="Etapas do fluxo">
+                <li>Necessidade</li>
+                <li>Escopo</li>
+                <li>Matching</li>
+                <li>Proposta</li>
+                <li>Contratação</li>
+                <li>Entregas</li>
+                <li>Aceite</li>
+                <li>Conclusão</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="tb-secao">
+        <div class="container-lg">
+            <div class="tb-sobretitulo">Categorias</div>
+            <h2>Onde os profissionais atuam</h2>
+            <div class="tb-categorias mt-3" id="inicio-categorias"></div>
+        </div>
+    </section>
+
+    <section class="tb-secao">
+        <div class="container-lg">
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="tb-sobretitulo">Segurança e privacidade</div>
+                    <h2>Seus dados, só para o que é preciso</h2>
+                    <p class="text-secondary">Coletamos o mínimo necessário para o fluxo de contratação funcionar. Você pode exportar seus dados ou excluir sua conta a qualquer momento.</p>
+                    <a href="/privacy">Ler a política de privacidade</a>
+                </div>
+                <div class="col-lg-7">
+                    <ul class="tb-garantias">
+                        <li><i data-lucide="lock"></i>Senhas guardadas com hash BCrypt, nunca em texto</li>
+                        <li><i data-lucide="eye-off"></i>Seu e-mail não aparece para outros usuários</li>
+                        <li><i data-lucide="shield-check"></i>Contratações visíveis só para as duas partes</li>
+                        <li><i data-lucide="download"></i>Exportação dos seus dados em um clique</li>
+                        <li><i data-lucide="user-x"></i>Exclusão de conta com anonimização</li>
+                        <li><i data-lucide="qr-code"></i>PIX em ambiente de teste — nenhum valor real</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer id="tb-rodape"></footer>
+</body>
+</html>

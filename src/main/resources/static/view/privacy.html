@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Política de privacidade · TaskBridge</title>
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/taskbridge.css">
+    <script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/webjars/lucide/1.20.0/dist/umd/lucide.min.js" defer></script>
+    <script type="module" src="/js/pages/documento.js"></script>
+</head>
+<body>
+<a class="tb-skip visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+<header id="tb-cabecalho"></header>
+<main id="conteudo" class="tb-main" tabindex="-1">
+    <div class="container-lg">
+        <article class="tb-documento mx-auto">
+            <div class="tb-sobretitulo">Versão 2026-09</div>
+            <h1>Política de privacidade</h1>
+            <div class="alert alert-warning small">
+                Este texto faz parte de um <strong>projeto acadêmico</strong>. Ele descreve como o sistema foi
+                construído, mas não foi revisado juridicamente e não deve ser usado como política real sem
+                validação de um profissional de proteção de dados.
+            </div>
+
+            <h2>1. Quais dados coletamos e por quê</h2>
+            <ul>
+                <li><strong>Nome completo e nome de usuário</strong> — identificar você para a outra parte de uma contratação.</li>
+                <li><strong>E-mail</strong> — entrar na conta. Não é exibido a outros usuários.</li>
+                <li><strong>Senha</strong> — guardada apenas como hash BCrypt; ninguém consegue lê-la, nem a equipe.</li>
+                <li><strong>Biografia, localização (cidade/UF) e foto</strong> — opcionais, exibidos no seu perfil público.</li>
+                <li><strong>Dados profissionais</strong> (prestadores) — título, experiência, faixa de preço e habilidades, usados no matching.</li>
+                <li><strong>Projetos, propostas, contratações e entregas</strong> — o conteúdo que você cria para usar a plataforma.</li>
+                <li><strong>Registros de segurança</strong> — tipo de evento (ex.: login), data e endereço IP, para proteger sua conta contra acesso indevido.</li>
+            </ul>
+            <p>Não coletamos CPF, telefone, endereço completo, data de nascimento nem dados bancários. O pagamento PIX deste projeto é simulado.</p>
+
+            <h2>2. Quem vê seus dados</h2>
+            <p>Seu perfil público mostra nome, usuário, biografia, localização, foto, serviços e histórico de projetos concluídos. Propostas são vistas apenas por quem enviou e pelo dono do projeto. Contratações, entregas e pagamentos são vistos apenas pelas duas partes.</p>
+
+            <h2>3. Por quanto tempo guardamos</h2>
+            <ul>
+                <li>Dados da conta: enquanto a conta existir.</li>
+                <li>Registros de segurança: 180 dias, depois são apagados automaticamente.</li>
+                <li>Contratações e pagamentos concluídos: mantidos após a exclusão da conta, sem seus dados pessoais, pelo prazo que obrigações legais exigirem.</li>
+            </ul>
+
+            <h2>4. Seus direitos</h2>
+            <p>Em <a href="/settings?secao=privacidade">Configurações › Privacidade e dados</a> você pode:</p>
+            <ul>
+                <li><strong>acessar e levar seus dados</strong>: baixe um arquivo JSON com tudo o que guardamos sobre você;</li>
+                <li><strong>corrigir</strong>: edite seus dados a qualquer momento;</li>
+                <li><strong>excluir a conta</strong>: seus dados pessoais são removidos ou anonimizados. Não é possível excluir com contratações em andamento.</li>
+            </ul>
+
+            <h2>5. Cookies</h2>
+            <p>Usamos apenas um cookie, estritamente necessário: o de sessão (<code>TBSESSION</code> ou <code>__session</code>), que mantém você conectado. Não usamos cookies de publicidade nem de rastreamento.</p>
+
+            <h2>6. Segurança</h2>
+            <p>Conexões em produção usam HTTPS. Senhas usam hash BCrypt, tentativas de login são limitadas, o acesso a cada recurso é verificado no servidor e as fotos enviadas são reprocessadas para remover metadados.</p>
+        </article>
+    </div>
+</main>
+<footer id="tb-rodape"></footer>
+</body>
+</html>

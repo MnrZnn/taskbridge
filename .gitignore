@@ -1,0 +1,40 @@
+# build
+target/
+*.class
+
+# segredos e configuração local
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+
+# dados locais (uploads, bancos de arquivo)
+data/
+*.db
+
+# IDEs e SO
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+.DS_Store
+Thumbs.db
+
+# ferramentas locais
+.claude/settings.local.json
+
+# pacote para upload no Cloud Shell
+taskbridge-deploy.zip
+taskbridge-deploy.tar.gz
+
+# cache do Firebase CLI
+.firebase/
+
+# material pessoal (fica só no computador)
+docs/GUIA-DE-ESTUDO.md
+README-COMPLETO.md

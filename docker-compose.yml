@@ -1,0 +1,45 @@
+# Ambiente local de desenvolvimento.
+#   docker compose up -d mysql        → só o banco (rode a aplicação pela IDE ou mvn spring-boot:run)
+#   docker compose up --build         → banco + aplicação em http://localhost:8080
+# As portas ficam presas a 127.0.0.1: nada disto fica acessível pela rede.
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-taskbridge}
+      MYSQL_USER: ${DB_USER:-taskbridge}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-taskbridge-dev}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root-somente-dev}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    ports:
+      - "127.0.0.1:3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u$$MYSQL_USER -p$$MYSQL_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build: .
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${DB_NAME:-taskbridge}
+      DB_USER: ${DB_USER:-taskbridge}
+      DB_PASSWORD: ${DB_PASSWORD:-taskbridge-dev}
+      PAYMENT_MODE: MOCK
+      PAYMENT_DEBUG_ENABLED: "true"
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - uploads:/app/data/uploads
+
+volumes:
+  mysql-data:
+  uploads:

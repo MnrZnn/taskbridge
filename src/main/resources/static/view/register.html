@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar conta · TaskBridge</title>
+    <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/taskbridge.css">
+    <script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/webjars/lucide/1.20.0/dist/umd/lucide.min.js" defer></script>
+    <script type="module" src="/js/pages/register.js"></script>
+</head>
+<body>
+<a class="tb-skip visually-hidden-focusable" href="#conteudo">Pular para o conteúdo</a>
+<header id="tb-cabecalho"></header>
+<main id="conteudo" class="tb-main" tabindex="-1">
+    <div class="container-lg">
+        <div class="tb-caixa-auth tb-larga">
+            <section class="tb-painel">
+                <div class="tb-painel-titulo"><h1 class="h2">Criar conta</h1></div>
+                <form class="tb-painel-corpo" id="form-registro" novalidate>
+                    <div class="alert alert-danger" data-erro-formulario tabindex="-1" hidden></div>
+                    <fieldset class="mb-3">
+                        <legend>Como você vai usar o TaskBridge?</legend>
+                        <div class="tb-opcoes-conta">
+                            <div class="tb-opcao-conta">
+                                <input type="radio" name="tipoConta" id="tipo-cliente" value="CLIENTE" checked>
+                                <label for="tipo-cliente"><strong>Quero contratar</strong><small>Descrevo necessidades e recebo propostas.</small></label>
+                            </div>
+                            <div class="tb-opcao-conta">
+                                <input type="radio" name="tipoConta" id="tipo-prestador" value="PRESTADOR">
+                                <label for="tipo-prestador"><strong>Quero trabalhar</strong><small>Ofereço serviços e envio propostas.</small></label>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Seus dados</legend>
+                        <div class="row g-3">
+                            <div class="col-md-7">
+                                <label class="form-label" for="nomeCompleto">Nome completo</label>
+                                <input class="form-control" id="nomeCompleto" name="nomeCompleto" autocomplete="name" required minlength="3" maxlength="120">
+                            </div>
+                            <div class="col-md-5">
+                                <label class="form-label" for="nomeUsuario">Nome de usuário</label>
+                                <input class="form-control" id="nomeUsuario" name="nomeUsuario" autocomplete="username" required pattern="[A-Za-z0-9_.]{3,30}" maxlength="30" aria-describedby="ajuda-usuario">
+                                <div class="form-text" id="ajuda-usuario">Público. Letras, números, ponto e _.</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="email">E-mail</label>
+                                <input class="form-control" id="email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="ajuda-email">
+                                <div class="form-text" id="ajuda-email">Usado apenas para entrar na conta. Não é exibido a outros usuários.</div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label" for="senha">Senha</label>
+                                <input class="form-control" id="senha" name="senha" type="password" autocomplete="new-password" required minlength="10" maxlength="64" aria-describedby="ajuda-senha">
+                                <div class="form-text" id="ajuda-senha">Mínimo de 10 caracteres, com letras e números.</div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div class="form-check mt-3 mb-3">
+                        <input class="form-check-input" type="checkbox" id="aceiteTermos" name="aceiteTermos" required>
+                        <label class="form-check-label small" for="aceiteTermos">
+                            Li e aceito os <a href="/terms" target="_blank" rel="noopener">Termos de uso</a> e a
+                            <a href="/privacy" target="_blank" rel="noopener">Política de privacidade</a>.
+                        </label>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Criar conta</button>
+                </form>
+                <div class="tb-painel-corpo pt-0" id="login-social" hidden></div>
+                <div class="tb-painel-rodape">Já tem conta? <a href="/login">Entrar</a></div>
+            </section>
+        </div>
+    </div>
+</main>
+<footer id="tb-rodape"></footer>
+</body>
+</html>

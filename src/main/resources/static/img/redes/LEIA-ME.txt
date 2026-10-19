@@ -1,0 +1,12 @@
+Ícones de marcas usados nos links de perfil e nos botões de login social.
+
+- Todos, exceto linkedin.svg: Simple Icons 16.2.0 (https://simpleicons.org), licença CC0 1.0.
+  Copiados só os necessários, para não embutir o pacote inteiro (~15 MB) na aplicação.
+- linkedin.svg: desenho próprio (quadrado com "in"). O Simple Icons removeu o logotipo do LinkedIn
+  a pedido da empresa; este é apenas uma representação genérica.
+
+As marcas pertencem aos seus respectivos donos e aparecem só para identificar o destino do link.
+
+Login social:
+- google.svg: logotipo "G" oficial em 4 cores, conforme as diretrizes de marca do botão "Fazer login com o Google".
+- github-branco.svg: marca do GitHub (Simple Icons) em branco, para o botão escuro no padrão do GitHub.

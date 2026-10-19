@@ -1,0 +1,29 @@
+# Reverse proxy com HTTPS automático (Let's Encrypt).
+# Caddy repassa X-Forwarded-For/Proto; a aplicação confia neles porque está só na rede interna
+# (server.forward-headers-strategy=native no perfil prod).
+{$DOMINIO} {
+	encode gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	# O Actuator só expõe /health; o resto não sai para a internet mesmo que seja habilitado por engano.
+	@actuatorInterno {
+		path /actuator/*
+		not path /actuator/health
+	}
+	respond @actuatorInterno 404
+
+	request_body {
+		max_size 4MB
+	}
+
+	reverse_proxy app:8080 {
+		transport http {
+			dial_timeout 5s
+			response_header_timeout 30s
+		}
+	}
+}
